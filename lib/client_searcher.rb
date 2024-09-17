@@ -1,17 +1,17 @@
-require 'json'
-require 'logger'
+require "json"
+require "logger"
 
 class ClientSearcher
   attr_reader :clients
 
-  def initialize(data_file_path, logger = Logger.new(STDOUT))
+  def initialize(data_file_path, logger = Logger.new($stdout))
     @data_file_path = data_file_path
     @clients = load_data
     @logger = logger
   end
 
   def search(query, fields = Client::SEARCHABLE_FIELDS)
-    @logger.info("Search initiated with query: '#{query}', Fields: #{fields.join(', ')}")
+    @logger.info("Search initiated with query: '#{query}', Fields: #{fields.join(", ")}")
     result = @clients.select { |client| client.matches?(query, fields) }
 
     if result.empty?
@@ -19,7 +19,7 @@ class ClientSearcher
     else
       @logger.info("#{result.size} results found for query: '#{query}'")
     end
-    
+
     result
   end
 
