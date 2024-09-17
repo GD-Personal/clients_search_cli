@@ -4,28 +4,31 @@ require "logger"
 class ClientSearcher
   attr_reader :clients
 
-  def initialize(data_file_path, logger = Logger.new($stdout))
+  def initialize(data_file_path)
     @data_file_path = data_file_path
     @clients = load_data
-    @logger = logger
+    @result = []
   end
 
   def search(query, fields = Client::SEARCHABLE_FIELDS)
-    @logger.info("Search initiated with query: '#{query}', Fields: #{fields.join(", ")}")
-    result = @clients.select { |client| client.matches?(query, fields) }
+    @clients.select { |client| client.matches?(query, fields) }
+  end
 
-    if result.empty?
-      @logger.warn("No results found for search query: '#{query}'")
+  # Displays results to the console
+  def display_results(results, output = $stdout)
+    if results.empty?
+      output.puts "No clients found."
     else
-      @logger.info("#{result.size} results found for query: '#{query}'")
+      results.each do |client|
+        output.puts "ID: #{client.id}, Name: #{client.full_name}, Email: #{client.email}"
+      end
+      output.puts "Found #{results.size} results!"
     end
-
-    result
   end
 
   private
 
-  def load_data
+  def load_data(output = $stdout)
     file = File.read(@data_file_path)
     data = JSON.parse(file)
     data.map do |client|
@@ -36,18 +39,7 @@ class ClientSearcher
       )
     end
   rescue Errno::ENOENT
-    @logger.error("Client data file not found!")
+    output.puts("Client data file not found!")
     exit
-  end
-
-  # Displays results to the console
-  def display_results(results)
-    if results.empty?
-      puts "No clients found."
-    else
-      results.each do |client|
-        puts "ID: #{client.id}, Name: #{client.full_name}, Email: #{client.email}"
-      end
-    end
   end
 end

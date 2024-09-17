@@ -1,4 +1,8 @@
-default: test
+default: run
+
+.PHONY: run
+run:
+	ruby ./lib/app.rb
 
 .PHONY: lint
 lint:
