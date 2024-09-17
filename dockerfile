@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     git
 
 # Set the working directory
-WORKDIR /shiftcare
+WORKDIR /app
 
 # Copy the application codes except for specs
 COPY Gemfile Gemfile.lock ./
