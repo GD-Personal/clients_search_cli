@@ -13,4 +13,3 @@ search_field = nil
 client_searcher = ClientSearcher.new(json_file_path)
 result = client_searcher.search(search_query, search_field)
 client_searcher.display_results(result)
-

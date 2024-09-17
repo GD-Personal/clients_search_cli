@@ -79,7 +79,7 @@ RSpec.describe Client do
     end
 
     context "when passing a nil search field" do
-      it 'falls back to the default searchable fields' do
+      it "falls back to the default searchable fields" do
         expect(subject.matches?("john", nil)).to eq true
       end
     end
