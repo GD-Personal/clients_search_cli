@@ -2,18 +2,13 @@ require "spec_helper"
 require "byebug"
 
 RSpec.describe ClientSearcher do
-  let(:logger) { instance_double("Logger").as_null_object }
-
-  before do
-    allow(Logger).to receive(:new).and_return(logger)
-  end
+  let(:data_path) { "./data/clients.json" }
 
   describe "#search" do
+
+    subject { described_class.new(data_path) }
+
     context "for a clients.json file" do
-      let(:data_path) { "./data/clients.json" }
-
-      subject { ClientSearcher.new(data_path) }
-
       context "when searching against a client's name" do
         context "when there is a match" do
           it "returns the matched client" do
@@ -73,6 +68,24 @@ RSpec.describe ClientSearcher do
             expect(result).to eq []
           end
         end
+      end
+    end
+  end
+
+  describe "#find_duplicate_emails" do
+
+    subject { described_class.new(data_path) }
+
+    context "when there is a duplicate" do
+      it 'returns the duplicate emails' do
+        expect(subject.find_duplicate_emails.size).to eq 2
+      end
+    end
+
+    context "when there is no duplicate" do
+      let(:data_path) { "./data/unique_clients.json" }
+      it 'returns an empty array' do
+        expect(subject.find_duplicate_emails).to eq []
       end
     end
   end

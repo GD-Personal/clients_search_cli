@@ -1,5 +1,6 @@
 require "json"
 require "logger"
+require "byebug"
 
 class ClientSearcher
   attr_reader :clients
@@ -12,6 +13,23 @@ class ClientSearcher
 
   def search(query, fields = Client::SEARCHABLE_FIELDS)
     @clients.select { |client| client.matches?(query, fields) }
+  end
+
+  def find_duplicate_emails
+    duplicates = {}
+    clients_by_email = {}
+
+    @clients.each do |client|
+      email = client.email.downcase
+      clients_by_email[email] ||= []
+      clients_by_email[email] << client
+    end
+
+    clients_by_email.each do |key, value|
+      duplicates[key] = value if value.size > 1
+    end
+    
+    duplicates.values.flatten
   end
 
   # Displays results to the console

@@ -1,9 +1,11 @@
 # Clients Search CLI
 
 ## Description
-This is a CLI application built with Ruby that would search through a JSON dataset with clients. There are 2 commands available:
-1. Search through all clients and return those with names partially matching a given search query
-2. Find out if there are any clients with the same email in the dataset, and show those duplicates if any are found.
+This is a CLI application built with Ruby that would search through a JSON dataset with clients. 
+
+Available commands:
+- `search`: searches through all clients and return those with names partially matching a given search query
+- `find_duplicates`: finds out if there are any clients with the same email in the dataset, and show those duplicates if any are found.
 
 ## Setup
 This application is using ruby 3.2.2 with the following tools:
