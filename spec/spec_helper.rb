@@ -1,7 +1,7 @@
 require "rspec"
 
 # Require lib files
-Dir.glob("./lib/**/*.rb").each do |file|
+Dir.glob("./lib/client_searcher/**/*.rb").each do |file|
   require file
 end
 
