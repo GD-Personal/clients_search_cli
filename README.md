@@ -1,4 +1,4 @@
-[![Github Actions](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml/badge.svg)](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml/badge.svg)
+[![Github Actions](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml/badge.svg)](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml)
 
 # Clients Search CLI
 
