@@ -1,5 +1,4 @@
 require "json"
-require "logger"
 require "byebug"
 
 class ClientSearcher
@@ -28,7 +27,7 @@ class ClientSearcher
     clients_by_email.each do |key, value|
       duplicates[key] = value if value.size > 1
     end
-    
+
     duplicates.values.flatten
   end
 
@@ -57,7 +56,7 @@ class ClientSearcher
       )
     end
   rescue Errno::ENOENT
-    output.puts("Client data file not found!")
+    output.puts("Client data file not found at #{@data_file_path}!")
     exit
   end
 end

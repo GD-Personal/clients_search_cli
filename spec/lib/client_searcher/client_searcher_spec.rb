@@ -5,7 +5,6 @@ RSpec.describe ClientSearcher do
   let(:data_path) { "./data/clients.json" }
 
   describe "#search" do
-
     subject { described_class.new(data_path) }
 
     context "for a clients.json file" do
@@ -73,20 +72,26 @@ RSpec.describe ClientSearcher do
   end
 
   describe "#find_duplicate_emails" do
-
     subject { described_class.new(data_path) }
 
     context "when there is a duplicate" do
-      it 'returns the duplicate emails' do
+      it "returns the duplicate emails" do
         expect(subject.find_duplicate_emails.size).to eq 2
+      end
+
+      it "returns a collection of Client object" do
+        expect(subject.find_duplicate_emails.first.class).to eq Client
       end
     end
 
     context "when there is no duplicate" do
       let(:data_path) { "./data/unique_clients.json" }
-      it 'returns an empty array' do
+      it "returns an empty array" do
         expect(subject.find_duplicate_emails).to eq []
       end
     end
+  end
+
+  describe "#display_results" do
   end
 end

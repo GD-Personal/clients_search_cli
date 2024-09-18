@@ -2,7 +2,11 @@ default: run
 
 .PHONY: run
 run:
-	ruby ./lib/app.rb
+	ruby ./lib/cli.rb --dataset_path=$(dataset_path) --command=$(command) --query=${query} --fields=$(fields)
+
+.PHONY: help
+help:
+	ruby ./lib/cli.rb --help
 
 .PHONY: lint
 lint:

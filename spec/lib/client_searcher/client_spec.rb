@@ -1,12 +1,6 @@
 require "spec_helper"
 
 RSpec.describe Client do
-  let(:logger) { instance_double("Logger").as_null_object }
-
-  before do
-    allow(Logger).to receive(:new).and_return(logger)
-  end
-
   describe "#matches?" do
     subject { Client.new(id: "1", full_name: "John Doe", email: "john.doe@gmail.com") }
 
