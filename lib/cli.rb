@@ -6,7 +6,7 @@ require "./lib/client_searcher/client_searcher"
 output = $stdout
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: make run [options]"
+  opts.banner = "Usage: make run command=search [options].\nAvailable commands: search, find_duplicate_fields.\nAvailable options:"
 
   opts.on("-d", "--dataset_path FILE", "Path to the dataset file. Supported format: json") do |file|
     options[:dataset_path] = file
@@ -20,10 +20,6 @@ OptionParser.new do |opts|
     options[:fields] = fields
   end
 
-  opts.on("-c", "--command COMMAND", "The command to perform (e.g search, find_duplicate_email)") do |command|
-    options[:command] = command
-  end
-
   opts.on("-h", "--help", "Prints this help") do
     output.puts opts
   end
@@ -32,7 +28,8 @@ end.parse!
 dataset_path = options[:dataset_path].to_s.empty? ? "./data/clients.json" : options[:dataset_path]
 client_searcher = ClientSearcher.new(dataset_path)
 
-case options[:command]
+main_command = ARGV[0]
+case main_command
 when "search"
   query = options[:query]
   fields = options[:fields].to_s.empty? ? nil : options[:fields].delete(" ").split(",")
@@ -48,6 +45,7 @@ when "find_duplicate_emails"
 
 when nil
   # do nothing
+  output.puts "\nPlease pass a command argument. See --help"
 else
-  output.puts "\nCommand #{options[:command]} not available.\n\n"
+  output.puts "\nCommand '#{main_command}' not available. See --help (or `make help`) for available options.\n\n"
 end
