@@ -35,13 +35,13 @@ Docker installed on your machine (See [Docker Installation Guides](https://docs.
 ## Run the CLI
 ```
 ❯ make run command=search query=john fields=full_name
-ruby ./lib/cli.rb command=search --dataset_path= --query=john --fields=full_name
+ruby ./lib/cli.rb search --dataset_path= --query=john --fields=full_name
 
 ❯ make run command=search query=william fields=full_name,email
-ruby ./lib/cli.rb command=search --dataset_path= --query=william --fields=full_name,email
+ruby ./lib/cli.rb search --dataset_path= --query=william --fields=full_name,email
 
 ❯ make run command=find_duplicate_emails
-ruby ./lib/cli.rb command=find_duplicate_emails --dataset_path= --query= --fields=
+ruby ./lib/cli.rb find_duplicate_emails --dataset_path= --query= --fields=
 
 ❯ make help
 ruby ./lib/cli.rb --help
