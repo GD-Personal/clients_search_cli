@@ -1,5 +1,5 @@
 require "rspec"
-require 'simplecov'
+require "simplecov"
 
 # Require lib files
 Dir.glob("./lib/client_searcher/**/*.rb").each do |file|
