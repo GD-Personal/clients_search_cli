@@ -1,4 +1,4 @@
-[![Github Actions](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml/badge.svg)](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/bee0f26fa1a8000b9994/maintainability)](https://codeclimate.com/github/GD-Personal/clients_search_cli/maintainability)
+[![Github Actions](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml/badge.svg)](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/bee0f26fa1a8000b9994/maintainability)](https://codeclimate.com/github/GD-Personal/clients_search_cli/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/bee0f26fa1a8000b9994/test_coverage)](https://codeclimate.com/github/GD-Personal/clients_search_cli/test_coverage)
 
 # Clients Search CLI
 
