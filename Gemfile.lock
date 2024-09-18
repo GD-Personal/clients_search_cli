@@ -81,6 +81,7 @@ DEPENDENCIES
   byebug
   rspec
   simplecov
+  simplecov_json_formatter
   standardrb
 
 BUNDLED WITH
