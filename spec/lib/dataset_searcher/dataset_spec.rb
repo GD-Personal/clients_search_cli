@@ -1,8 +1,19 @@
 require "spec_helper"
+require "byebug"
 
-RSpec.describe Client do
+RSpec.describe Dataset do
+  describe ".initialize" do
+    subject { described_class.new(id: "1", name: "John Doe", email: "john.doe@gmail.com", address: "Sydney, Australia") }
+    context "sets the dynamic attributes as singleton methods" do
+      it { is_expected.to respond_to :attributes }
+      it { is_expected.to respond_to :name }
+      it { is_expected.to respond_to :email }
+      it { is_expected.to respond_to :address }
+    end
+  end
+
   describe "#matches?" do
-    subject { Client.new(id: "1", full_name: "John Doe", email: "john.doe@gmail.com") }
+    subject { described_class.new(id: "1", full_name: "John Doe", email: "john.doe@gmail.com") }
 
     context "when no search field is passed" do
       context "when no query is passed" do
@@ -37,7 +48,7 @@ RSpec.describe Client do
     end
 
     context "when a search field is passed" do
-      subject { Client.new(id: "1", full_name: "John Doe", email: "jdoe@gmail.com") }
+      subject { described_class.new(id: "1", full_name: "John Doe", email: "jdoe@gmail.com") }
       context "when no query is passed" do
         it "returns true" do
           expect(subject.matches?(nil, ["email"])).to eq true

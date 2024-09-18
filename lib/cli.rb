@@ -1,7 +1,7 @@
 require "optparse"
 
-require "./lib/client_searcher/client"
-require "./lib/client_searcher/client_searcher"
+require "./lib/dataset_searcher/dataset"
+require "./lib/dataset_searcher/dataset_searcher"
 
 output = $stdout
 options = {}
@@ -25,8 +25,8 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-dataset_path = options[:dataset_path].to_s.empty? ? "./data/clients.json" : options[:dataset_path]
-client_searcher = ClientSearcher.new(dataset_path)
+dataset_path = options[:dataset_path].to_s.empty? ? "./data/dataset.json" : options[:dataset_path]
+client_searcher = DatasetSearcher.new(dataset_path)
 
 main_command = ARGV[0]
 case main_command
@@ -34,7 +34,7 @@ when "search"
   query = options[:query]
   fields = options[:fields].to_s.empty? ? nil : options[:fields].delete(" ").split(",")
 
-  output.puts "\nSearching for #{query} in #{fields}..."
+  output.puts "\nSearching for #{query} in #{fields || "all fields"}..."
   result = client_searcher.search(query, fields)
   client_searcher.display_results(result)
 

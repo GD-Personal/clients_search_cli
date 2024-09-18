@@ -1,24 +1,24 @@
 require "spec_helper"
 require "byebug"
 
-RSpec.describe ClientSearcher do
-  let(:data_path) { "./data/clients.json" }
+RSpec.describe DatasetSearcher do
+  let(:data_path) { "./data/dataset.json" }
 
   describe "#search" do
     subject { described_class.new(data_path) }
 
-    context "for a clients.json file" do
-      context "when searching against a client's name" do
+    context "for a datasets.json file" do
+      context "when searching against a dataset's name" do
         context "when there is a match" do
-          it "returns the matched client" do
+          it "returns the matched dataset" do
             result = subject.search("john", ["full_name"])
             expect(result).not_to eq []
             expect(result.first.full_name.downcase).to match(/john/)
           end
 
-          it "returns a collection of Client object" do
+          it "returns a collection of Dataset object" do
             result = subject.search("john", ["full_name"])
-            expect(result.first.class).to eq Client
+            expect(result.first.class).to eq Dataset
           end
         end
 
@@ -30,17 +30,17 @@ RSpec.describe ClientSearcher do
         end
       end
 
-      context "when searching against a client's email" do
+      context "when searching against a dataset's email" do
         context "when there is a match" do
-          it "returns the matched client" do
+          it "returns the matched dataset" do
             result = subject.search("michael", ["email"])
             expect(result).not_to eq []
             expect(result.first.email.downcase).to match(/michael/)
           end
 
-          it "returns a collection of Client object" do
+          it "returns a collection of dataset object" do
             result = subject.search("michael", ["email"])
-            expect(result.first.class).to eq Client
+            expect(result.first.class).to eq Dataset
           end
         end
 
@@ -69,6 +69,28 @@ RSpec.describe ClientSearcher do
         end
       end
     end
+
+    context "for a different dataset" do
+      let(:data_path) { "./data/different_dataset.json" }
+      it "works as well" do
+        result = subject.search("Godfather")
+        expect(result).not_to eq []
+      end
+    end
+
+    context "for invalid file" do
+      let(:data_path) { "./data/dataset.csv" }
+      it "has empty data" do
+        expect(subject.data).to eq []
+      end
+    end
+
+    context "for file not found" do
+      let(:data_path) { "./data/nonexistent.json" }
+      it "has empty data" do
+        expect(subject.data).to eq []
+      end
+    end
   end
 
   describe "#find_duplicate_emails" do
@@ -79,13 +101,13 @@ RSpec.describe ClientSearcher do
         expect(subject.find_duplicate_emails.size).to eq 2
       end
 
-      it "returns a collection of Client object" do
-        expect(subject.find_duplicate_emails.first.class).to eq Client
+      it "returns a collection of Dataset object" do
+        expect(subject.find_duplicate_emails.first.class).to eq Dataset
       end
     end
 
     context "when there is no duplicate" do
-      let(:data_path) { "./data/unique_clients.json" }
+      let(:data_path) { "./data/unique_dataset.json" }
       it "returns an empty array" do
         expect(subject.find_duplicate_emails).to eq []
       end
@@ -93,5 +115,12 @@ RSpec.describe ClientSearcher do
   end
 
   describe "#display_results" do
+    context "when there is no data" do
+    end
+
+    context "when there is data" do
+      it "displays the datasets' information" do
+      end
+    end
   end
 end
