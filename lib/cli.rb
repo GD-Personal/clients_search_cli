@@ -47,5 +47,5 @@ when nil
   # do nothing
   output.puts "\nPlease pass a command argument. See --help"
 else
-  output.puts "\nCommand '#{main_command}' not available. See --help (or `make help`) for available options.\n\n"
+  output.puts "\nCommand '#{main_command}' is not available.\nSee --help (or `make help`) for available commands and options.\n\n"
 end
