@@ -1,4 +1,4 @@
-[![Github Actions](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml/badge.svg)](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml)
+[![Github Actions](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml/badge.svg)](https://github.com/GD-Personal/clients_search_cli/actions/workflows/ci.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/bee0f26fa1a8000b9994/maintainability)](https://codeclimate.com/github/GD-Personal/clients_search_cli/maintainability)
 
 # Clients Search CLI
 
