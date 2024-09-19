@@ -13,8 +13,8 @@ RSpec.describe Dataset do
 
     context "when loading dangerous keys/attributes" do
       subject { described_class.new(object_id: "1", send: "John Doe", class: "john.doe@gmail.com") }
-      it 'raises an error' do
-        expect{subject}.to raise_error(/Invalid key/)
+      it "raises an error" do
+        expect { subject }.to raise_error(/Invalid key/)
       end
     end
   end
