@@ -5,8 +5,7 @@ FROM ruby:3.2.2-alpine
 RUN apk add --no-cache \
     build-base \
     bash \
-    libpq-dev \
-    git
+    libpq-dev
 
 # Set the working directory
 WORKDIR /app

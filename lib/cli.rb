@@ -28,7 +28,7 @@ end.parse!
 
 dataset_path = options[:dataset_path].to_s.empty? ? "./data/dataset.json" : options[:dataset_path]
 data = DataLoader.new(dataset_path).load_data
-client_searcher = DatasetSearcher.new(data)
+dataset_searcher = DatasetSearcher.new(data)
 
 main_command = ARGV[0]
 case main_command
@@ -37,16 +37,15 @@ when "search"
   fields = options[:fields].to_s.empty? ? nil : options[:fields].delete(" ").split(",")
 
   output.puts "\nSearching for #{query} in #{fields || "all fields"}..."
-  result = client_searcher.search(query, fields)
-  client_searcher.display_results(result)
+  result = dataset_searcher.search(query, fields)
+  dataset_searcher.display_results(result)
 
 when "find_duplicate_emails"
   output.puts "\nFinding duplicate emails..."
-  result = client_searcher.find_duplicate_emails
-  client_searcher.display_results(result)
+  result = dataset_searcher.find_duplicate_emails
+  dataset_searcher.display_results(result)
 
 when nil
-  # do nothing
   output.puts "\nPlease pass a command argument. See --help"
 else
   output.puts "\nCommand '#{main_command}' is not available.\nSee --help (or `make help`) for available commands and options.\n\n"

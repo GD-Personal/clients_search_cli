@@ -2,7 +2,7 @@ require "spec_helper"
 require "byebug"
 
 RSpec.describe DatasetSearcher do
-  let(:data) { DataLoader.new("./data/dataset.json").load_data }
+  let(:data) { DataLoader.new("./spec/sample_data/dataset.json").load_data }
 
   describe "#search" do
     subject { described_class.new(data) }
@@ -71,7 +71,7 @@ RSpec.describe DatasetSearcher do
     end
 
     context "for a different dataset" do
-      let(:data) { DataLoader.new("./data/different_dataset.json").load_data }
+      let(:data) { DataLoader.new("./spec/sample_data/different_dataset.json").load_data }
       it "works as well" do
         result = subject.search("Godfather")
         expect(result).not_to eq []
@@ -79,14 +79,14 @@ RSpec.describe DatasetSearcher do
     end
 
     context "for invalid file" do
-      let(:data) { DataLoader.new("./data/dataset.csv").load_data }
+      let(:data) { DataLoader.new("./spec/sample_data/dataset.csv").load_data }
       it "has empty data" do
         expect(subject.data).to eq []
       end
     end
 
     context "for file not found" do
-      let(:data) { DataLoader.new("./data/nonexistent.json").load_data }
+      let(:data) { DataLoader.new("./spec/sample_data/nonexistent.json").load_data }
       it "has empty data" do
         expect(subject.data).to eq []
       end
@@ -107,7 +107,7 @@ RSpec.describe DatasetSearcher do
     end
 
     context "when there is no duplicate" do
-      let(:data) { DataLoader.new("./data/unique_dataset.json").load_data }
+      let(:data) { DataLoader.new("./spec/sample_data/unique_dataset.json").load_data }
       it "returns an empty array" do
         expect(subject.find_duplicate_emails).to eq []
       end
