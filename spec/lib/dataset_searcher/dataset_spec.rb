@@ -4,11 +4,18 @@ require "byebug"
 RSpec.describe Dataset do
   describe ".initialize" do
     subject { described_class.new(id: "1", name: "John Doe", email: "john.doe@gmail.com", address: "Sydney, Australia") }
-    context "sets the dynamic attributes as singleton methods" do
+    context "responds to the given attributes" do
       it { is_expected.to respond_to :attributes }
       it { is_expected.to respond_to :name }
       it { is_expected.to respond_to :email }
       it { is_expected.to respond_to :address }
+    end
+
+    context "when loading dangerous keys/attributes" do
+      subject { described_class.new(object_id: "1", send: "John Doe", class: "john.doe@gmail.com") }
+      it 'raises an error' do
+        expect{subject}.to raise_error(/Invalid key/)
+      end
     end
   end
 

@@ -4,9 +4,8 @@ require "byebug"
 class DatasetSearcher
   attr_reader :data
 
-  def initialize(data_file_path)
-    @data_file_path = data_file_path
-    @data = load_data
+  def initialize(data)
+    @data = data
     @result = []
   end
 
@@ -16,14 +15,8 @@ class DatasetSearcher
 
   def find_duplicate_emails
     duplicates = {}
-    data_by_email = {}
 
-    @data.each do |data|
-      email = data.email.downcase
-      data_by_email[email] ||= []
-      data_by_email[email] << data
-    end
-
+    data_by_email = @data.group_by { |d| d.email.downcase }
     data_by_email.each do |key, value|
       duplicates[key] = value if value.size > 1
     end
@@ -41,21 +34,5 @@ class DatasetSearcher
       end
       output.puts "Found #{results.size} result(s)!"
     end
-  end
-
-  private
-
-  def load_data(output = $stdout)
-    file = File.read(@data_file_path)
-    results = JSON.parse(file)
-    results.map do |result|
-      Dataset.new(result)
-    end
-  rescue Errno::ENOENT
-    output.puts("Client data file not found at #{@data_file_path}!")
-    []
-  rescue JSON::ParserError
-    output.puts("Invalid JSON!")
-    []
   end
 end

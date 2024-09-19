@@ -1,6 +1,7 @@
 require "optparse"
 
 require "./lib/dataset_searcher/dataset"
+require "./lib/dataset_searcher/data_loader"
 require "./lib/dataset_searcher/dataset_searcher"
 
 output = $stdout
@@ -26,7 +27,8 @@ OptionParser.new do |opts|
 end.parse!
 
 dataset_path = options[:dataset_path].to_s.empty? ? "./data/dataset.json" : options[:dataset_path]
-client_searcher = DatasetSearcher.new(dataset_path)
+data = DataLoader.new(dataset_path).load_data
+client_searcher = DatasetSearcher.new(data)
 
 main_command = ARGV[0]
 case main_command
