@@ -1,8 +1,5 @@
 require "optparse"
-
-require "./lib/dataset_searcher/dataset"
-require "./lib/dataset_searcher/data_loader"
-require "./lib/dataset_searcher/dataset_searcher"
+require "flexi/json"
 
 output = $stdout
 options = {}
@@ -27,8 +24,8 @@ OptionParser.new do |opts|
 end.parse!
 
 dataset_path = options[:dataset_path].to_s.empty? ? "./data/dataset.json" : options[:dataset_path]
-data = DataLoader.new(dataset_path).load_data
-dataset_searcher = DatasetSearcher.new(data)
+data = Flexi::Json::Loader.new(dataset_path).load_data
+flexi_json_searcher = Flexi::Json::Searcher.new(data)
 
 main_command = ARGV[0]
 case main_command
@@ -37,13 +34,13 @@ when "search"
   fields = options[:fields].to_s.empty? ? nil : options[:fields].delete(" ").split(",")
 
   output.puts "\nSearching for #{query} in #{fields || "all fields"}..."
-  result = dataset_searcher.search(query, fields)
-  dataset_searcher.display_results(result)
+  result = flexi_json_searcher.search(query, fields)
+  flexi_json_searcher.display_results(result)
 
 when "find_duplicate_emails"
   output.puts "\nFinding duplicate emails..."
-  result = dataset_searcher.find_duplicate_emails
-  dataset_searcher.display_results(result)
+  result = flexi_json_searcher.find_duplicates("email")
+  flexi_json_searcher.display_results(result)
 
 when nil
   output.puts "\nPlease pass a command argument. See --help"

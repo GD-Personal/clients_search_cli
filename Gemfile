@@ -2,6 +2,8 @@
 
 source "https://rubygems.org"
 
+gem "flexi-json"
+
 group :development do
   gem "standardrb"
   gem "bundler-audit"
