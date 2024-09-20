@@ -3,7 +3,7 @@ require "simplecov_json_formatter"
 require "simplecov"
 
 # Require lib files
-Dir.glob("./lib/dataset_searcher/**/*.rb").each do |file|
+Dir.glob("./lib/*.rb").each do |file|
   require file
 end
 
